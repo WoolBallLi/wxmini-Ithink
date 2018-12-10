@@ -2,7 +2,6 @@
 > 小程序项目随笔, 记录一下一些想法, 遇到的问题和遗忘的知识
 ---  
 
-
 - [1. 开发工具](#1-开发工具)
 - [2. 小程序的写法](#2-小程序的写法)
 - [3. 电池栏的适配](#3-电池栏的适配)
@@ -15,14 +14,15 @@
 - [10. 倒计时](#10-倒计时)
 - [11. 长按和单次点击功能不一样](#11-长按和单次点击功能不一样)
 - [12. input和button样式的大坑](#12-input和button样式的大坑)
-- [13. 文字超出省略](#13-文字超出省略)
-- [14. template模板](#14-template模板)
-- [15. component组件](#15-component组件)
-- [16. input与textarea](#16-input与textarea)
-  - [16.1. input](#161-input)
-  - [16.2. textarea](#162-textarea)
-
-
+- [13. template模板](#13-template模板)
+- [14. component组件](#14-component组件)
+- [15. input与textarea](#15-input与textarea)
+  - [15.1. input](#151-input)
+  - [15.2. textarea](#152-textarea)
+  - [15.3. css文字换行](#153-css文字换行)
+  - [15.4. 文字超出省略](#154-文字超出省略)
+  - [15.5. 文字两端对齐](#155-文字两端对齐)
+  - [15.6. inline-block元素设置overflow:hidden属性导致相邻行内元素向下偏移](#156-inline-block元素设置overflowhidden属性导致相邻行内元素向下偏移)
   
 # 1. 开发工具  
 
@@ -166,6 +166,7 @@ wx.request({
 # 10. 倒计时
 看这里!
 >[微信小程序---完整的验证码获取倒计时效果 ---根据手机号是否符合要求进行判断](https://blog.csdn.net/Candy_mi/article/details/80225359)  
+
 倒计时的原理就是通过一个计时器改变data状态, 然后渲染到页面里. 根据自己的具体需求, 加些验证, 改变提示文字即可.  
 
 # 11. 长按和单次点击功能不一样  
@@ -404,4 +405,37 @@ textarea多行文本输入的使用方法基本和input一致, 但是有一点, 
   -webkit-box-orient: vertical;
 }
 ```  
-还有一种使用纯css的兼容写法.在逛git的时候, 看见[happylindz](https://github.com/happylindz)大佬的[纯 CSS 实现多行文字截断](https://github.com/happylindz/blog/issues/12), 真是太佩服了. 以前从未想到过`float`可以这样用.
+还有一种使用纯css的兼容写法.在逛git的时候, 看见[happylindz](https://github.com/happylindz)大佬的[纯 CSS 实现多行文字截断](https://github.com/happylindz/blog/issues/12), 真是太佩服了. 以前从未想到过`float`可以这样用.  
+
+## 15.5. 文字两端对齐  
+
+css有一个文字两端对齐的属性`text-align: justify`, 它可以在多行文字(中英数字符号交错)导致一行不能很好的占满时, 实现两端对齐的效果. 但是有个问题是, 在一行没有占满时, 这个属性就不起作用了.  
+想要让它起效, 需要添加一个行内空标签.  
+```html
+<div>添加一个行内空标签就有效了！<i></i></div>
+```
+```css
+div i{
+  display:inline-block;
+  /*padding-left: 100%;*/
+  width:100%;
+}
+```
+- padding-left: 100%和width:100%都可以达到效果，选用其一即可  
+
+也可改用after、before伪元素  
+```css  
+div::after {
+  content: " ";
+  display: inline-block;
+  width: 100%;
+}
+```
+>[小技巧|CSS如何实现文字两端对齐](https://segmentfault.com/a/1190000011336392)  
+
+## 15.6. inline-block元素设置overflow:hidden属性导致相邻行内元素向下偏移  
+
+>[inline-block元素设置overflow:hidden属性导致相邻行内元素向下偏移](https://blog.csdn.net/iefreer/article/details/50421025)  
+
+常用的解决方法是为上述inline-block元素添加vertical-align: bottom。  
+
