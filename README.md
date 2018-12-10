@@ -120,7 +120,7 @@ that.setData({
 在代码中可以看见, 小程序绑定方法使用的是`bind:tap(bindtap)`,  
 而vue里是`v-on:click="doSomething"(@click="doSomething")`.  
 在微信小程序里, 你需要`data-$name`, 然后在js里通过`e`来获取. 这时有一点儿要注意, 获取的值要在`currentTarget`里找, 不要使用其他的键名, 虽然都可一看到有一样的键值对, 但是会出现各种问题.  
->**注意啦**`currentTarget.dataset.$name`里, 他的`$name`并不是你写在元素里的名字, 会全部变成小写字母.  
+- **注意啦**`currentTarget.dataset.$name`里, 他的`$name`并不是你写在元素里的名字, 会全部变成小写字母.  
 
 vue就是普通的函数参数啦, 没什么好说的.  
 至于react, `html+js`, 妥妥的.
@@ -429,6 +429,8 @@ textarea多行文本输入的使用方法基本和input一致, 但是有一点, 
 
 ## 14.5. 文字两端对齐  
 
+>[小技巧|CSS如何实现文字两端对齐](https://segmentfault.com/a/1190000011336392)  
+
 css有一个文字两端对齐的属性`text-align: justify`, 它可以在多行文字(中英数字符号交错)导致一行不能很好的占满时, 实现两端对齐的效果. 但是有个问题是, 在一行没有占满时, 这个属性就不起作用了.  
 想要让它起效, 需要添加一个行内空标签.  
 ```html
@@ -451,7 +453,6 @@ div::after {
   width: 100%;
 }
 ```
->[小技巧|CSS如何实现文字两端对齐](https://segmentfault.com/a/1190000011336392)  
 
 ## 14.6. inline-block元素设置overflow:hidden属性导致相邻行内元素向下偏移  
 
