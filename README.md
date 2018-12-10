@@ -240,35 +240,7 @@ input {
 }
 ```  
 
-# 13. 文字超出省略  
-微信小程序的文字超出省略就简单了, 他是`webkit`内核的, 直接使用常规的就OK.
-```css  
-// 一行文字省略
-.ellipsis {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-// 两行文字省略
-.twoEllipsis {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-}
-// 三行文字省略
-.threeEllipsis {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-}
-```  
-还有一种使用纯css的兼容写法.在逛git的时候, 看见[happylindz](https://github.com/happylindz)大佬的[纯 CSS 实现多行文字截断](https://github.com/happylindz/blog/issues/12), 真是太佩服了. 以前从未想到过`float`可以这样用.
-
-# 14. template模板
+# 13. template模板
 
 WXML提供模板(template), 可以在模板中定义代码片段, 然后在不同的地方调用.  
 在一个wxml模板里, 给template起一个`name`, 这个`name`将会在调用模板时, 声明这个模板是谁(名字). 调用时使用一个`<import src='..'></import>`标签引入. 每个模板有一个单独的作用域, 在模板中使用的数据, 要通过`data="{{$data}}`传入, 否则无法调用.  
@@ -300,7 +272,7 @@ Page({
 WXSS可以使用@import语句可以导入外联样式表，@import后跟需要导入的外联样式表的相对路径，用;表示语句结束。
 而js, 就和平常一样引入就行了. 调用时记得传入this.  
 
-# 15. component组件  
+# 14. component组件  
 
 component组件的写法基本和page页面一样, 简单用法参考官方文档即可.  
 我就用到的地方说几句.  
@@ -342,11 +314,11 @@ collectProject: function (e) {
 },  
 ```
 
-# 16. input与textarea
+# 15. input与textarea
 
 微信小程序里的input和textarea是原生组件, 小程序里的原生组件层级是最高的, 不可被覆盖. 并且无法在 `scroll-view、swiper、picker-view、movable-view` 中使用. 会产生各种莫名其妙的问题, 例如在滚动时诡异的表现.  
 
-## 16.1. input  
+## 15.1. input  
 
 普通的 `input` 输入框, 看似没有这些问题, 那是小程序做了一定的处理. 大概的原理就是, 在非输入状态下,  `input` 只是一个普通的元素, 点击的时候就会变成正常的 `input` .  
 这样解决了原生组件的样式问题, 但是却带来了一个新的**bug**, 聚焦和非聚焦状态下的 `input` 表现不一致, 切换时会出现文字跳动的问题, 这个**bug**暂时无解.  
@@ -359,7 +331,7 @@ collectProject: function (e) {
 | text   | 文本输入键盘       |
 | number | 数字输入键盘       |
 | idcard | 身份证输入键盘     |
-| digit  | 带小数点的数字键盘 |  
+| digit  | 带小数点的数字键盘 |
 
 `type`可以直接改变键盘布局(大部分情况下).  
 `password`为`true`时, 会将输入内容会表现为实心圆, 输入法会切换为**英文状态(安卓)|英文输入(ios)**. 这时候要注意, 如果你更改`password`属性为`false`, 会变为普通的`text`类型, 这时候是可以输入中文的, 所以最好添加一个中文验证.  
@@ -387,9 +359,49 @@ if (/[\u4e00-\u9fa5]/.test(PWNum)) {
 微信小程序的`placeholder`样式通过`placeholder-class`属性, 接收一个**class类名**或`placeholder-style`属性, 使用**行内样式**.  
 `input`还有`value`属性, 输入框的内容; `disabled`属性, 是否禁用等.  
 
-## 16.2. textarea  
+## 15.2. textarea  
 
 textarea多行文本输入的使用方法基本和input一致, 但是有一点, 小程序并没有对齐进行额外的处理, 所以在非聚焦情况下, textarea的层级永远最高, 还会出现诡异的滚动情况.  
 - tip: 不建议在多行文本上对用户的输入进行修改，所以 textarea 的 bindinput 处理函数并不会将返回值反映到 textarea 上。  
 
 为了能有更好的表现效果, 在有滚动和遮罩的场景, 建议非聚焦情况下使用`view`做一个展示效果, 通过`wx:if`切换`view`与`textarea`, 更改`focus`属性为`true`获取焦点.  
+
+## 15.3. css文字换行  
+
+提到了文字输入, 补充一下文字换行的css小知识.  
+> [你真的了解word-wrap和word-break的区别吗？](https://www.cnblogs.com/2050/archive/2012/08/10/2632256.html)  
+
+文字换行css有两个属性`word-wrap: break-word`和`word-break: break-all`.  
+简单来说, 当一个单词(特指英文单词)过长, 一行放不下后, 浏览器(包括微信小程序)会另起一行来放置这个单词. 然而, 当第二行还是放不下怎么办? 对不起, 单词就超出去啦!  
+`word-wrap: break-word`会使所有的'**行**', 都带上超出换行的属性, 直到他不再超出. 并不会改变默认的**另起一行效果**.  
+而`word-break: break-all`就是简单粗暴的, 以每一个字母来当做换行的**标识**, 这时候就不存在超出另起一行的表现了. 换句话来说就是, 已经没有单词这个概念了, 每一个字母就是一个单词.  
+`word-break: break-all`除了opera外，其他都支持.  
+
+## 15.4. 文字超出省略  
+
+微信小程序的文字超出省略就简单了, 他是`webkit`内核的, 直接使用常规的就OK.
+```css  
+// 一行文字省略
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+// 两行文字省略
+.twoEllipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+// 三行文字省略
+.threeEllipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+```  
+还有一种使用纯css的兼容写法.在逛git的时候, 看见[happylindz](https://github.com/happylindz)大佬的[纯 CSS 实现多行文字截断](https://github.com/happylindz/blog/issues/12), 真是太佩服了. 以前从未想到过`float`可以这样用.
