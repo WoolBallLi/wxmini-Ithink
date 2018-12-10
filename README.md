@@ -19,15 +19,15 @@
 - [15. component组件](#15-component组件) 
 
   
-## 1. 开发工具  
+# 1. 开发工具  
 
 本人使用的是vsCode编写小程序的, 安装Vetur和minapp插件以支持微信小程序. (vsCode的less编译真好用).  
 
-## 2. 小程序的写法  
+# 2. 小程序的写法  
 
 首先嘛, 小程序和vue.js非常相似, 但也不尽相同, 本人有使用vue的经验, 并没有十分仔细的完整阅读微信小程序的文档, 以至于有很对问题明明文档里有直接的解决办法, 我还在抓破脑袋的瞎想. 幸亏我老哥也是做小程序的, 每次问他都是拿文档贴我脸上, 嘿嘿嘿.  
 
-## 3. 电池栏的适配  
+# 3. 电池栏的适配  
 
 当ui不想使用微信自带的导航栏时, 自己写就得做电池栏的适配了.   
 这个`statusBarHeight`就是电池栏的高度了, 注意单位是px, 往里写rpx的时候要*2. 微信小程序的rpx单位是以苹果6 dpr2为基准算的, 会根据机型自动调整, 暂时未发现有什么大问题.  
@@ -43,7 +43,7 @@ wx.getSystemInfo({
 })  
 ```  
 
-## 4. 小程序里的data  
+# 4. 小程序里的data  
 
 微信小程序里读取是`this.data.$name`, 存储是`this.setData({$name: '$data'})`.  
 vue里读取和存储都是`this.$name`,  
@@ -55,7 +55,7 @@ that.setData({
 })
 ```  
 
-## 5. 关于if和hidden的条件渲染  
+# 5. 关于if和hidden的条件渲染  
 
 微信小程序里的`wx:if`和`hidden`是同**vue**里的`v-if`和`v-show`类似.  
 `wx:if`与`v-if`完全相同, 是控制是否加载这个元素的.  
@@ -64,7 +64,7 @@ that.setData({
 **react**里的条件渲染是在`render`时, 直接通过**js**控制的.  
 微信有一个神奇的标签`<block></block>`, 他是一个空标签, 主要用在`wx:if, hidden, wx:for`上. 在渲染的时候就不需要多一个`<view></view>`标签了.
 
-## 6. 关于for循环渲染  
+# 6. 关于for循环渲染  
 
 微信小程序的`wx:for`和`v-for`类似.  
 值得注意的是, 微信小程序默认的循环value是item, 下标是index, 可以直接使用;  
@@ -97,7 +97,7 @@ that.setData({
 </ul>
 ```  
 
-## 7. 元素上绑定方法, 以及绑定data  
+# 7. 元素上绑定方法, 以及绑定data  
 
 在这一点上微信小程序和vue的差别就已经不小了.  
 在代码中可以看见, 小程序绑定方法使用的是`bind:tap(bindtap)`,  
@@ -133,7 +133,7 @@ goThinkDetail: function (e) {
 <button onClick={this.handleClick}>按钮</button>
  ```  
 
-## 8. 关于微信里的js语法  
+# 8. 关于微信里的js语法  
 
 微信小程序已经可以很好的支持es6(es2015), 多多使用es6的语法吧.  
 `promise`可以帮您解决好多麻烦的问题.  
@@ -143,7 +143,7 @@ goThinkDetail: function (e) {
 [regenerator-runtime](https://github.com/facebook/regenerator/blob/master/packages/regenerator-runtime/runtime.js) 引入, 直接就可以使用`async`和`awiat`啦! 除了在哪里用就都要引入之外, 暂时没什么缺点.  
 需要注意的是, 虽然本人使用`async/await`时没有出现过问题. 但是在使用es6 `forof`的时候出现过莫名其妙的解析失败, 将其换成`forin`之后就可以正常使用. 有此前车之鉴, 我的想法是, 尽量少用?
 
-## 9. wx.request  
+# 9. wx.request  
 
 我们的小程序其中有一个获取11位秘钥的接口, 直接获取发现json格式自动截取了10位. 这种情况下, 给request设置一下接受格式为text, 就可以解决了.  
 ```js  
@@ -158,12 +158,12 @@ wx.request({
 });
 ```  
 
-## 10. 倒计时
+# 10. 倒计时
 看这里!
 >[微信小程序---完整的验证码获取倒计时效果 ---根据手机号是否符合要求进行判断](https://blog.csdn.net/Candy_mi/article/details/80225359)  
 倒计时的原理就是通过一个计时器改变data状态, 然后渲染到页面里. 根据自己的具体需求, 加些验证, 改变提示文字即可.  
 
-## 11. 长按和单次点击功能不一样  
+# 11. 长按和单次点击功能不一样  
 如果是一个长按复制和单机跳转怎么办呢? 你会发现, 单纯的使用`text`组件的长按复制和`bind:tap`, 长按的时候会触发tap事件.  
 这时候就有两个属性`bindtouchstart`和`bindtouchend`出现了, 这是触碰开始和触碰结束, 判断开始到结束的时间, 来触发不同的方法即可.  
 ```html  
@@ -212,7 +212,7 @@ copy: function (text) {
 },
 ```  
 
-## 12. input和button样式的大坑
+# 12. input和button样式的大坑
 
 微信小程序里, input和button有一大堆的默认样式, 相当坑. 当你需要高度的自定义一个按钮, 就会让你头疼. 其中的伪类样式有一个border边框.
 ```css  
@@ -235,7 +235,7 @@ input {
 }
 ```  
 
-## 13. 文字超出省略  
+# 13. 文字超出省略  
 微信小程序的文字超出省略就简单了, 他是`webkit`内核的, 直接使用常规的就OK.
 ```css  
 // 一行文字省略
@@ -263,7 +263,7 @@ input {
 ```  
 还有一种使用纯css的兼容写法.在逛git的时候, 看见[happylindz](https://github.com/happylindz)大佬的[纯 CSS 实现多行文字截断](https://github.com/happylindz/blog/issues/12), 真是太佩服了. 以前从未想到过`float`可以这样用.
 
-## 14. template模板
+# 14. template模板
 
 WXML提供模板(template), 可以在模板中定义代码片段, 然后在不同的地方调用.  
 在一个wxml模板里, 给template起一个`name`, 这个`name`将会在调用模板时, 声明这个模板是谁(名字). 调用时使用一个`<import src='..'></import>`标签引入. 每个模板有一个单独的作用域, 在模板中使用的数据, 要通过`data="{{$data}}`传入, 否则无法调用.  
@@ -295,7 +295,7 @@ Page({
 WXSS可以使用@import语句可以导入外联样式表，@import后跟需要导入的外联样式表的相对路径，用;表示语句结束。
 而js, 就和平常一样引入就行了. 调用时记得传入this.  
 
-## 15. component组件  
+# 15. component组件  
 
 component组件的写法基本和page页面一样, 简单用法参考官方文档即可.  
 我就用到的地方说几句.  
@@ -336,3 +336,54 @@ collectProject: function (e) {
   this.triggerEvent('add-collect', myEventDetail)
 },  
 ```
+
+# 16. input与textarea
+
+微信小程序里的input和textarea是原生组件, 小程序里的原生组件层级是最高的, 不可被覆盖. 并且无法在 `scroll-view、swiper、picker-view、movable-view` 中使用. 会产生各种莫名其妙的问题, 例如在滚动时诡异的表现.  
+
+## 16.1. input  
+
+普通的 `input` 输入框, 看似没有这些问题, 那是小程序做了一定的处理. 大概的原理就是, 在非输入状态下,  `input` 只是一个普通的元素, 点击的时候就会变成正常的 `input` .  
+这样解决了原生组件的样式问题, 但是却带来了一个新的**bug**, 聚焦和非聚焦状态下的 `input` 表现不一致, 切换时会出现文字跳动的问题, 这个**bug**暂时无解.  
+获取 `input` 文字内容有两种方法 `bindinput` 和 `bindblur` . 在具体使用 `input` 时,  `bindblur`有这样一个表现, 在 `input` 输入文字后, 直接点击 `button` 进行操作,  `bindblur`  会不触发. 所以在登陆或者搜索等操作时, 还是使用 `bindinput` 获取吧.  
+ `input` 有5种类型, 其中4种type和1个password.  
+> type值  
+
+| 值     | 说明               |
+| ------ | ------------------ |
+| text   | 文本输入键盘       |
+| number | 数字输入键盘       |
+| idcard | 身份证输入键盘     |
+| digit  | 带小数点的数字键盘 |
+`type`可以直接改变键盘布局(大部分情况下).  
+`password`为`true`时, 会将输入内容会表现为实心圆, 输入法会切换为**英文状态(安卓)|英文输入(ios)**. 这时候要注意, 如果你更改`password`属性为`false`, 会变为普通的`text`类型, 这时候是可以输入中文的, 所以最好添加一个中文验证.  
+```js
+if (/[\u4e00-\u9fa5]/.test(PWNum)) {
+    that.setData({
+      PWFlag: false,
+    });
+    Tip('密码不能有中文');
+  } 
+```  
+`confirm-type`可以设置键盘右下角按钮的文字，仅在type='text'时生效.  
+> confirm-type 有效值： 
+> 
+| 值     | 说明                   |
+| ------ | ---------------------- |
+| send   | 右下角按钮为“发送”   |
+| search | 右下角按钮为“搜索”   |
+| next   | 右下角按钮为“下一个” |
+| go     | 右下角按钮为“前往”   |
+| done   | 右下角按钮为“完成”   |
+- 注：confirm-type的最终表现与手机输入法本身的实现有关，部分安卓系统输入法和第三方输入法可能不支持或不完全支持.  
+  
+`bindconfirm`点击完成按钮时触发, 写法和bindtap相同, 可以接收一个e: `event.detail = {value: value}`.  
+微信小程序的`placeholder`样式通过`placeholder-class`属性, 接收一个**class类名**或`placeholder-style`属性, 使用**行内样式**.  
+`input`还有`value`属性, 输入框的内容; `disabled`属性, 是否禁用等.  
+
+## 16.2. textarea  
+
+textarea多行文本输入的使用方法基本和input一致, 但是有一点, 小程序并没有对齐进行额外的处理, 所以在非聚焦情况下, textarea的层级永远最高, 还会出现诡异的滚动情况.  
+- tip: 不建议在多行文本上对用户的输入进行修改，所以 textarea 的 bindinput 处理函数并不会将返回值反映到 textarea 上。  
+
+为了能有更好的表现效果, 在有滚动和遮罩的场景, 建议非聚焦情况下使用`view`做一个展示效果, 通过`wx:if`切换`view`与`textarea`, 更改`focus`属性为`true`获取焦点.  
