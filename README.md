@@ -67,10 +67,36 @@ vue里读取和存储都是`this.$name`,
 react里读取是`this.state.$name`, 存储是`this.setState({$name: '$data'})`.  
 另外有一点儿要注意的是, 当你想写一个公共方法, 需要传入setData的键名时, 直接将参数放在键的位置是不行的, 你需要加一个中括号. 记得把调用页面的`this`一起穿.
 ```js  
-that.setData({
+this.setData({
   [$name]: $value
 })
+```    
+如果你有一个
+```js
+data: {
+  list: {
+    list1: [1],
+    list2: [2],
+    list3: [3],
+  }
+},
 ```  
+想只给list1赋值怎么办？加个引号即可  
+```js
+this.setData({
+  'list.list1': [1, 2, 3]
+})
+```  
+```js
+data: {
+  _list: [1, 2, 3]
+}
+this.setData({
+  '_list[0]': [1, 2, 3]
+})
+```  
+
+>[小程序赋值代码片段](https://developers.weixin.qq.com/s/MBFvIBmD7W4H)
 
 # 5. 关于if和hidden的条件渲染  
 
@@ -175,17 +201,39 @@ wx.request({
 });
 ```  
 
-# 10. 倒计时
+# 10. 倒计时  
+
 看这里!
 >[微信小程序---完整的验证码获取倒计时效果 ---根据手机号是否符合要求进行判断](https://blog.csdn.net/Candy_mi/article/details/80225359)  
 
 倒计时的原理就是通过一个计时器改变data状态, 然后渲染到页面里. 根据自己的具体需求, 加些验证, 改变提示文字即可.  
 
-# 11. 长按和单次点击功能不一样  
+# 11. 事件  
+
+> 事件分类  
+
+| 类型               | 触发条件                                                                               | 最低版本 |
+| ------------------ | -------------------------------------------------------------------------------------- | -------- |
+| touchstart         | 手指触摸动作开始                                                                       |
+| touchmove          | 手指触摸后移动                                                                         |
+| touchcancel        | 手指触摸动作被打断，如来电提醒，弹窗                                                   |
+| touchend           | 手指触摸动作结束                                                                       |
+| tap                | 手指触摸后马上离开                                                                     |
+| longpress          | 手指触摸后，超过350ms再离开，如果指定了事件回调函数并触发了这个事件，tap事件将不被触发 | 1.5.0    |
+| longtap            | 手指触摸后，超过350ms再离开（推荐使用longpress事件代替）                               |
+| transitionend      | 会在 WXSS transition 或 wx.createAnimation 动画结束后触发                              |
+| animationstart     | 会在一个 WXSS animation 动画开始时触发                                                 |
+| animationiteration | 会在一个 WXSS animation 一次迭代结束时触发                                             |
+| animationend       | 会在一个 WXSS animation 动画完成时触发                                                 |
+| touchforcechange   | 在支持 3D Touch 的 iPhone 设备，重按时会触发                                           | 1.9.90   |
+
+## 11.1. 长按和单次点击功能不一样  
+
 如果是一个长按复制和单机跳转怎么办呢? 你会发现, 单纯的使用`text`组件的长按复制和`bind:tap`, 长按的时候会触发tap事件.  
 这时候就有两个属性`bindtouchstart`和`bindtouchend`出现了, 这是触碰开始和触碰结束, 判断开始到结束的时间, 来触发不同的方法即可.  
+
 ```html  
-<view bindtouchstart="mytouchstart" bindtouchend="mytouchend" bind:tap="tapEvent">
+<view data-text="{text}" bindtouchstart="mytouchstart" bindtouchend="mytouchend" bind:tap="tapEvent">
 </view>
 ```  
 ```js  
