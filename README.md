@@ -577,6 +577,8 @@ query.exec(function(res){
 
 ![著名的七阶层叠水平](https://images2015.cnblogs.com/blog/608782/201609/608782-20160923104742809-2054066790.png)  
 
+> [深入理解 CSS 属性 z-index](https://github.com/happylindz/blog/issues/11)  
+
 > 摘自[MDN](https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Understanding_z_index/The_stacking_context)  
 
 文档中的层叠上下文由满足以下任意一个条件的元素形成： 
