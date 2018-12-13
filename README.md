@@ -575,7 +575,7 @@ query.exec(function(res){
 
 # 17. z-index(层叠上下文)  
 
-![著名的七阶层叠水平](https://github.com/WoolBallLi/wxmini-Ithink/img/7.png)  
+![著名的七阶层叠水平](https://raw.githubusercontent.com/WoolBallLi/wxmini-Ithink/master/img/7.png)  
 
 > [深入理解 CSS 属性 z-index](https://github.com/happylindz/blog/issues/11)  
 
