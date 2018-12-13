@@ -575,14 +575,14 @@ query.exec(function(res){
 
 # 17. z-index(层叠上下文)  
 
-> ![著名的七阶层叠水平](https://images2015.cnblogs.com/blog/608782/201609/608782-20160923104742809-2054066790.png)
+![著名的七阶层叠水平](https://images2015.cnblogs.com/blog/608782/201609/608782-20160923104742809-2054066790.png)  
 
-文档中的层叠上下文由满足以下任意一个条件的元素形成：摘自[MDN](https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Understanding_z_index/The_stacking_context)  
+> 摘自[MDN](https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Understanding_z_index/The_stacking_context)  
+
+文档中的层叠上下文由满足以下任意一个条件的元素形成： 
 - 根元素 (HTML),
-- z-index 值不为 "
-"的 绝对/相对定位，
-- 一个 z-index 值不为 "
-"的 flex 项目 (flex item)，即：父元素 - display: flex|inline-flex，
+- z-index 值不为 "auto"的 绝对/相对定位，
+- 一个 z-index 值不为 "auto"的 flex 项目 (flex item)，即：父元素 - display: flex|inline-flex，
 - [opacity](https://developer.mozilla.org/zh-CN/docs/Web/CSS/opacity) 属性值小于 1 的元素（参考 [the specification for opacity](https://www.w3.org/TR/css-color-3/#transparency)），
 - [transform](https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform) 属性值不为 "none"的元素，
 - [mix-blend-mode](https://developer.mozilla.org/zh-CN/docs/Web/CSS/mix-blend-mode) 属性值不为 "normal"的元素，
