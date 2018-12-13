@@ -592,5 +592,5 @@ query.exec(function(res){
 - [perspective](https://developer.mozilla.org/zh-CN/docs/Web/CSS/perspective)值不为“none”的元素，
 - [isolation](https://developer.mozilla.org/zh-CN/docs/Web/CSS/isolation) 属性被设置为 "isolate"的元素，
 - position: fixed
-- 在 [will-change](https://developer.mozilla.org/zh-CN/docs/Web/CSS/will-change) 中指定了任意 CSS 属性，即便你没有直接指定这些属性的值（参考 这篇文章）
+- 在 [will-change](https://developer.mozilla.org/zh-CN/docs/Web/CSS/will-change) 中指定了任意 CSS 属性，即便你没有直接指定这些属性的值（参考 [这篇文章](https://dev.opera.com/articles/css-will-change-property/)）
 - [-webkit-overflow-scrolling](https://developer.mozilla.org/zh-CN/docs/Web/CSS/-webkit-overflow-scrolling) 属性被设置 "touch"的元素
