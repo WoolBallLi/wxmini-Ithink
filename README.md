@@ -15,7 +15,8 @@
 - [8. 关于微信里的js语法](#8-关于微信里的js语法)
 - [9. wx.request](#9-wxrequest)
 - [10. 倒计时](#10-倒计时)
-- [11. 长按和单次点击功能不一样](#11-长按和单次点击功能不一样)
+- [11. 事件](#11-事件)
+  - [11.1. 长按和单次点击功能不一样](#111-长按和单次点击功能不一样)
 - [12. input和button样式的大坑](#12-input和button样式的大坑)
 - [13. template模板与component组件](#13-template模板与component组件)
   - [13.1. template模板](#131-template模板)
@@ -34,7 +35,7 @@
   - [15.4. 上拉加载](#154-上拉加载)
   - [15.5. 在有遮罩层时, 可以滚动](#155-在有遮罩层时-可以滚动)
 - [16. 路由](#16-路由)
-
+- [17. z-index(层叠上下文)](#17-z-index层叠上下文)
   
 # 1. 开发工具  
 
@@ -572,6 +573,22 @@ query.exec(function(res){
 在需要的时候, 可以`wx.reLaunch(Object object)`清除. 但是不要滥用.  
 我在使用路由的时候, 遇到过一个诡异的情况, 在从tabbar页切换到其它页面时, 莫名的加载了另一个tabbar页, `wx.navigateBack(Object object)`也可正常返回. 但是被额外加载的tabbar页`scroll-view`的`scroll-top`失效了, 不得已使用`reLaunch`切换, 算是解决了问题.  
 
-# z-index  
+# 17. z-index(层叠上下文)  
 
 > ![著名的七阶层叠水平](https://images2015.cnblogs.com/blog/608782/201609/608782-20160923104742809-2054066790.png)
+
+文档中的层叠上下文由满足以下任意一个条件的元素形成：摘自[MDN](https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Understanding_z_index/The_stacking_context)  
+- 根元素 (HTML),
+- z-index 值不为 "
+"的 绝对/相对定位，
+- 一个 z-index 值不为 "
+"的 flex 项目 (flex item)，即：父元素 - display: flex|inline-flex，
+- [opacity](https://developer.mozilla.org/zh-CN/docs/Web/CSS/opacity) 属性值小于 1 的元素（参考 [the specification for opacity](https://www.w3.org/TR/css-color-3/#transparency)），
+- [transform](https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform) 属性值不为 "none"的元素，
+- [mix-blend-mode](https://developer.mozilla.org/zh-CN/docs/Web/CSS/mix-blend-mode) 属性值不为 "normal"的元素，
+- [filter](https://developer.mozilla.org/zh-CN/docs/Web/CSS/filter)值不为“none”的元素，
+- [perspective](https://developer.mozilla.org/zh-CN/docs/Web/CSS/perspective)值不为“none”的元素，
+- [isolation](https://developer.mozilla.org/zh-CN/docs/Web/CSS/isolation) 属性被设置为 "isolate"的元素，
+- position: fixed
+- 在 [will-change](https://developer.mozilla.org/zh-CN/docs/Web/CSS/will-change) 中指定了任意 CSS 属性，即便你没有直接指定这些属性的值（参考 这篇文章）
+- [-webkit-overflow-scrolling](https://developer.mozilla.org/zh-CN/docs/Web/CSS/-webkit-overflow-scrolling) 属性被设置 "touch"的元素
