@@ -570,4 +570,8 @@ query.exec(function(res){
 
 微信小程序的路由具有10层的限制, 超出会出问题.  
 在需要的时候, 可以`wx.reLaunch(Object object)`清除. 但是不要滥用.  
-我在使用路由的时候, 遇到过一个诡异的情况, 在从tabbar页切换到其它页面时, 莫名的加载了另一个tabbar页, `wx.navigateBack(Object object)`也可正常返回. 但是被额外加载的tabbar页`scroll-view`的`scroll-top`失效了, 不得已使用`reLaunch`切换, 算是解决了问题.
+我在使用路由的时候, 遇到过一个诡异的情况, 在从tabbar页切换到其它页面时, 莫名的加载了另一个tabbar页, `wx.navigateBack(Object object)`也可正常返回. 但是被额外加载的tabbar页`scroll-view`的`scroll-top`失效了, 不得已使用`reLaunch`切换, 算是解决了问题.  
+
+# z-index  
+
+> ![著名的七阶层叠水平](https://images2015.cnblogs.com/blog/608782/201609/608782-20160923104742809-2054066790.png)
