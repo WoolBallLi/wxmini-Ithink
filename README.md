@@ -180,7 +180,7 @@ goThinkDetail: function (e) {
 # 8. 关于微信里的js语法  
 
 微信小程序已经可以很好的支持es6(es2015), 多多使用es6的语法吧.  
-`promise`可以帮您解决好多麻烦的问题.  
+`promise`可以帮你解决好多麻烦的问题.  
 但是微信暂时没有支持es7及以上. 有些麻烦的异步问题非常想用`async`和`awiat`解决怎么办?  
 > [微信小程序开发用 JS ES8 async/await 解决异步调用](https://pluwen.com/archives/397)  
 > 
@@ -217,21 +217,50 @@ wx.request({
 | ------------------ | -------------------------------------------------------------------------------------- | -------- |
 | touchstart         | 手指触摸动作开始                                                                       |
 | touchmove          | 手指触摸后移动                                                                         |
-| touchcancel        | 手指触摸动作被打断，如来电提醒，弹窗                                                   |
+| touchcancel        | 手指触摸动作被打断,如来电提醒,弹窗                                                   |
 | touchend           | 手指触摸动作结束                                                                       |
 | tap                | 手指触摸后马上离开                                                                     |
-| longpress          | 手指触摸后，超过350ms再离开，如果指定了事件回调函数并触发了这个事件，tap事件将不被触发 | 1.5.0    |
-| longtap            | 手指触摸后，超过350ms再离开（推荐使用longpress事件代替）                               |
+| longpress          | 手指触摸后,超过350ms再离开,如果指定了事件回调函数并触发了这个事件,tap事件将不被触发 | 1.5.0    |
+| longtap            | 手指触摸后,超过350ms再离开（推荐使用longpress事件代替）                               |
 | transitionend      | 会在 WXSS transition 或 wx.createAnimation 动画结束后触发                              |
 | animationstart     | 会在一个 WXSS animation 动画开始时触发                                                 |
 | animationiteration | 会在一个 WXSS animation 一次迭代结束时触发                                             |
 | animationend       | 会在一个 WXSS animation 动画完成时触发                                                 |
-| touchforcechange   | 在支持 3D Touch 的 iPhone 设备，重按时会触发                                           | 1.9.90   |
+| touchforcechange   | 在支持 3D Touch 的 iPhone 设备,重按时会触发                                           | 1.9.90   |
 
 ## 11.1. 长按和单次点击功能不一样  
 
 如果是一个长按复制和单机跳转怎么办呢? 你会发现, 单纯的使用`text`组件的长按复制和`bind:tap`, 长按的时候会触发tap事件.  
-这时候就有两个属性`bindtouchstart`和`bindtouchend`出现了, 这是触碰开始和触碰结束, 判断开始到结束的时间, 来触发不同的方法即可.  
+
+### 11.1.1. longpress  
+
+```html
+<view class="view" bind:longpress="copy" data-text='{{text}}' bind:tap="call">{{text}}</view>
+```
+```js
+call(e) {
+  console.log('call',e);
+},
+//长按复制
+copy(e) {
+  var that = this;
+  console.log('copy',e);
+  let text = e.currentTarget.dataset.text
+  wx.setClipboardData({
+    data: text,
+    success: function (res) {
+      wx.showToast({
+        title: '复制成功',
+      });
+    }
+  });
+},
+```  
+此时长按只会触发`copy`事件, 不会触发`call`.
+
+### 11.1.2. bindtouchstart和bindtouchend  
+
+属性`bindtouchstart`和`bindtouchend`出现了, 是触碰开始和触碰结束, 判断开始到结束的时间, 来触发不同的方法即可.  
 
 ```html  
 <view data-text="{text}" bindtouchstart="mytouchstart" bindtouchend="mytouchend" bind:tap="tapEvent">
@@ -339,7 +368,7 @@ Page({
   }
 })
 ```  
-WXSS可以使用@import语句可以导入外联样式表，@import后跟需要导入的外联样式表的相对路径，用;表示语句结束。
+WXSS可以使用@import语句可以导入外联样式表,@import后跟需要导入的外联样式表的相对路径,用;表示语句结束.
 而js, 就和平常一样引入就行了. 调用时记得传入this.  
 
 ## 13.2. component组件  
@@ -347,7 +376,7 @@ WXSS可以使用@import语句可以导入外联样式表，@import后跟需要�
 component组件的写法基本和page页面一样, 简单用法参考官方文档即可.  
 我就用到的地方说几句.  
 - 子组件的wxss不会自动引入app.wxss的公共样式, 需要手动引入.  
-- component组件里, 是有他自己的生命周期的, `ready(){}` 比较常用, 他是在**组件生命周期函数，在组件布局完成后执行**. 更多的生命周期参考文档.  
+- component组件里, 是有他自己的生命周期的, `ready(){}` 比较常用, 他是在**组件生命周期函数,在组件布局完成后执行**. 更多的生命周期参考文档.  
 - 父子组件通信可就麻烦了, 像vue一样, 子组件不可以直接向父组件传值. 需要在父组件里向子组件绑定一个方法, 子组件在执行自己的方法之后, 调用这个方法, 通过`this.triggerEvent('add-collect-project', myEventDetail)`给父组件传值.  
 - 绑定的方法和vue一样, 不支持驼峰写法, 要用 `-` 相连.
 > 父组件wxml 
@@ -379,7 +408,7 @@ addCollectProject: function (e) {
 collectProject: function (e) {
   console.log(e);
   let index = e.currentTarget.dataset.index;
-  var myEventDetail = { index }; // detail对象，提供给事件监听函数
+  var myEventDetail = { index }; // detail对象,提供给事件监听函数
   this.triggerEvent('add-collect', myEventDetail)
 },  
 ```
@@ -413,7 +442,7 @@ if (/[\u4e00-\u9fa5]/.test(PWNum)) {
     Tip('密码不能有中文');
   } 
 ```  
-`confirm-type`可以设置键盘右下角按钮的文字，仅在type='text'时生效.  
+`confirm-type`可以设置键盘右下角按钮的文字,仅在type='text'时生效.  
 > confirm-type 有效值： 
 > 
 | 值     | 说明                   |
@@ -423,7 +452,7 @@ if (/[\u4e00-\u9fa5]/.test(PWNum)) {
 | next   | 右下角按钮为“下一个” |
 | go     | 右下角按钮为“前往”   |
 | done   | 右下角按钮为“完成”   |
-- 注：confirm-type的最终表现与手机输入法本身的实现有关，部分安卓系统输入法和第三方输入法可能不支持或不完全支持.  
+- 注：confirm-type的最终表现与手机输入法本身的实现有关,部分安卓系统输入法和第三方输入法可能不支持或不完全支持.  
   
 `bindconfirm`点击完成按钮时触发, 写法和bindtap相同, 可以接收一个e: `event.detail = {value: value}`.  
 微信小程序的`placeholder`样式通过`placeholder-class`属性, 接收一个**class类名**或`placeholder-style`属性, 使用**行内样式**.  
@@ -432,7 +461,7 @@ if (/[\u4e00-\u9fa5]/.test(PWNum)) {
 ## 14.2. textarea  
 
 textarea多行文本输入的使用方法基本和input一致, 但是有一点, 小程序并没有对齐进行额外的处理, 所以在非聚焦情况下, textarea的层级永远最高, 还会出现诡异的滚动情况.  
-- tip: 不建议在多行文本上对用户的输入进行修改，所以 textarea 的 bindinput 处理函数并不会将返回值反映到 textarea 上。  
+- tip: 不建议在多行文本上对用户的输入进行修改,所以 textarea 的 bindinput 处理函数并不会将返回值反映到 textarea 上.  
 
 为了能有更好的表现效果, 在有滚动和遮罩的场景, 建议非聚焦情况下使用`view`做一个展示效果, 通过`wx:if`切换`view`与`textarea`, 更改`focus`属性为`true`获取焦点.  
 
@@ -445,7 +474,7 @@ textarea多行文本输入的使用方法基本和input一致, 但是有一点, 
 简单来说, 当一个单词(特指英文单词)过长, 一行放不下后, 浏览器(包括微信小程序)会另起一行来放置这个单词. 然而, 当第二行还是放不下怎么办? 对不起, 单词就超出去啦!  
 `word-wrap: break-word`会使所有的'**行**', 都带上超出换行的属性, 直到他不再超出. 并不会改变默认的**另起一行效果**.  
 而`word-break: break-all`就是简单粗暴的, 以每一个字母来当做换行的**标识**, 这时候就不存在超出另起一行的表现了. 换句话来说就是, 已经没有单词这个概念了, 每一个字母就是一个单词.  
-`word-break: break-all`除了opera外，其他都支持.  
+`word-break: break-all`除了opera外,其他都支持.  
 
 ## 14.4. 文字超出省略  
 
@@ -492,7 +521,7 @@ div i{
   width:100%;
 }
 ```
-- padding-left: 100%和width:100%都可以达到效果，选用其一即可  
+- padding-left: 100%和width:100%都可以达到效果,选用其一即可  
 
 也可改用after、before伪元素  
 ```css  
@@ -507,7 +536,7 @@ div::after {
 
 >[inline-block元素设置overflow:hidden属性导致相邻行内元素向下偏移](https://blog.csdn.net/iefreer/article/details/50421025)  
 
-常用的解决方法是为上述inline-block元素添加vertical-align: bottom。  
+常用的解决方法是为上述inline-block元素添加vertical-align: bottom.  
 
 # 15. 又爱又恨的scroll-view  
 说起`scroll-view `, 那可真是让人又爱又恨, 爱它封装了好多方法, 使用就能解决大部分问题, 甚至`scroll-view `组件还能触发`ios`的Q弹特效. 恨它bug无数, 不知什么时候就一头栽坑里爬不出来.  
@@ -517,18 +546,18 @@ div::after {
 | --------------------- | --------------- | ------ | --------------------------------------------------------------------------------------------- |
 | scroll-x              | Boolean         | false  | 允许横向滚动                                                                                  |
 | scroll-y              | Boolean         | false  | 允许纵向滚动                                                                                  |
-| upper-threshold       | Number / String | 50     | 距顶部/左边多远时（单位px，2.4.0起支持rpx），触发 scrolltoupper 事件                          |
-| lower-threshold       | Number / String | 50     | 距底部/右边多远时（单位px，2.4.0起支持rpx），触发 scrolltolower 事件                          |
-| scroll-top            | Number / String |        | 设置竖向滚动条位置（单位px，2.4.0起支持rpx）                                                  |
-| scroll-left           | Number / String |        | 设置横向滚动条位置（单位px，2.4.0起支持rpx）                                                  |
-| scroll-into-view      | String          |        | 值应为某子元素id（id不能以数字开头）。设置哪个方向可滚动，则在哪个方向滚动到该元素            |
+| upper-threshold       | Number / String | 50     | 距顶部/左边多远时（单位px,2.4.0起支持rpx）,触发 scrolltoupper 事件                          |
+| lower-threshold       | Number / String | 50     | 距底部/右边多远时（单位px,2.4.0起支持rpx）,触发 scrolltolower 事件                          |
+| scroll-top            | Number / String |        | 设置竖向滚动条位置（单位px,2.4.0起支持rpx）                                                  |
+| scroll-left           | Number / String |        | 设置横向滚动条位置（单位px,2.4.0起支持rpx）                                                  |
+| scroll-into-view      | String          |        | 值应为某子元素id（id不能以数字开头）.设置哪个方向可滚动,则在哪个方向滚动到该元素            |
 | scroll-with-animation | Boolean         | false  | 在设置滚动条位置时使用动画过渡                                                                |
-| enable-back-to-top    | Boolean         | false  | iOS点击顶部状态栏、安卓双击标题栏时，滚动条返回顶部，只支持竖向                               |
-| bindscrolltoupper     | EventHandle     |        | 滚动到顶部/左边，会触发 scrolltoupper 事件                                                    |
-| bindscrolltolower     | EventHandle     |        | 滚动到底部/右边，会触发 scrolltolower 事件                                                    |
-| bindscroll            | EventHandle     |        | 滚动时触发，event.detail = {scrollLeft, scrollTop, scrollHeight, scrollWidth, deltaX, deltaY} |
+| enable-back-to-top    | Boolean         | false  | iOS点击顶部状态栏、安卓双击标题栏时,滚动条返回顶部,只支持竖向                               |
+| bindscrolltoupper     | EventHandle     |        | 滚动到顶部/左边,会触发 scrolltoupper 事件                                                    |
+| bindscrolltolower     | EventHandle     |        | 滚动到底部/右边,会触发 scrolltolower 事件                                                    |
+| bindscroll            | EventHandle     |        | 滚动时触发,event.detail = {scrollLeft, scrollTop, scrollHeight, scrollWidth, deltaX, deltaY} |
 
-- 使用竖向滚动时，需要给`<scroll-view>`一个固定高度，通过 WXSS 设置 height。  
+- 使用竖向滚动时,需要给`<scroll-view>`一个固定高度,通过 WXSS 设置 height.  
 
 ## 15.1. 回到顶部和锚点跳转  
 
@@ -575,7 +604,7 @@ query.exec(function(res){
 
 # 17. z-index(层叠上下文)  
 
-![著名的七阶层叠水平](https://raw.githubusercontent.com/WoolBallLi/wxmini-Ithink/master/img/7.png)  
+![著名的七阶层叠水平](https://raw.githubusercontent.com/WoolBallLi/wxmini-Ithink/master/img/17_level.png)  
 
 > [深入理解 CSS 属性 z-index](https://github.com/happylindz/blog/issues/11)  
 
@@ -583,14 +612,121 @@ query.exec(function(res){
 
 文档中的层叠上下文由满足以下任意一个条件的元素形成： 
 - 根元素 (HTML),
-- z-index 值不为 "auto"的 绝对/相对定位，
-- 一个 z-index 值不为 "auto"的 flex 项目 (flex item)，即：父元素 - display: flex|inline-flex，
-- [opacity](https://developer.mozilla.org/zh-CN/docs/Web/CSS/opacity) 属性值小于 1 的元素（参考 [the specification for opacity](https://www.w3.org/TR/css-color-3/#transparency)），
-- [transform](https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform) 属性值不为 "none"的元素，
-- [mix-blend-mode](https://developer.mozilla.org/zh-CN/docs/Web/CSS/mix-blend-mode) 属性值不为 "normal"的元素，
-- [filter](https://developer.mozilla.org/zh-CN/docs/Web/CSS/filter)值不为“none”的元素，
-- [perspective](https://developer.mozilla.org/zh-CN/docs/Web/CSS/perspective)值不为“none”的元素，
-- [isolation](https://developer.mozilla.org/zh-CN/docs/Web/CSS/isolation) 属性被设置为 "isolate"的元素，
+- z-index 值不为 "auto"的 绝对/相对定位,
+- 一个 z-index 值不为 "auto"的 flex 项目 (flex item),即：父元素 - display: flex|inline-flex,
+- [opacity](https://developer.mozilla.org/zh-CN/docs/Web/CSS/opacity) 属性值小于 1 的元素（参考 [the specification for opacity](https://www.w3.org/TR/css-color-3/#transparency)）,
+- [transform](https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform) 属性值不为 "none"的元素,
+- [mix-blend-mode](https://developer.mozilla.org/zh-CN/docs/Web/CSS/mix-blend-mode) 属性值不为 "normal"的元素,
+- [filter](https://developer.mozilla.org/zh-CN/docs/Web/CSS/filter)值不为“none”的元素,
+- [perspective](https://developer.mozilla.org/zh-CN/docs/Web/CSS/perspective)值不为“none”的元素,
+- [isolation](https://developer.mozilla.org/zh-CN/docs/Web/CSS/isolation) 属性被设置为 "isolate"的元素,
 - position: fixed
-- 在 [will-change](https://developer.mozilla.org/zh-CN/docs/Web/CSS/will-change) 中指定了任意 CSS 属性，即便你没有直接指定这些属性的值（参考 [这篇文章](https://dev.opera.com/articles/css-will-change-property/)）
-- [-webkit-overflow-scrolling](https://developer.mozilla.org/zh-CN/docs/Web/CSS/-webkit-overflow-scrolling) 属性被设置 "touch"的元素
+- 在 [will-change](https://developer.mozilla.org/zh-CN/docs/Web/CSS/will-change) 中指定了任意 CSS 属性,即便你没有直接指定这些属性的值（参考 [这篇文章](https://dev.opera.com/articles/css-will-change-property/)）
+- [-webkit-overflow-scrolling](https://developer.mozilla.org/zh-CN/docs/Web/CSS/-webkit-overflow-scrolling) 属性被设置 "touch"的元素  
+
+z-index不是写上去就会如你所想, 大在上, 小的在下. z-index会寻找一个参照, 来比较大小.  
+
+```html
+<view class='box'>
+  <view class="one">1</view>
+  <view class="two">2</view>
+</view>
+```  
+```css
+.one {
+  z-index: 2;
+  position: absolute;
+  width: 100rpx;
+  height: 50rpx;
+  background: pink;
+}
+.two {
+  z-index: 1;
+  position: absolute;
+  width: 300rpx;
+  height: 100rpx;
+  background: skyblue;
+}
+```  
+
+![eg1](https://raw.githubusercontent.com/WoolBallLi/wxmini-Ithink/master/img/17_eg1.png)  
+
+如此一个z-index, 2在1之上无误.  
+
+```html  
+<view class='box'>
+  <view class="three">
+    <view class='five'>5</view>
+    3
+  </view>
+  <view class="four">4</view>
+</view>
+```  
+```css
+.three {
+  z-index: 3;
+  position: absolute;
+  width: 300rpx;
+  height: 150rpx;
+  background: orangered;
+}
+.five {
+  z-index: 5;
+  position: absolute;
+  width: 200rpx;
+  height: 100rpx;
+  background: yellow;
+}
+.four {
+  z-index: 4;
+  position: absolute;
+  top: 0;
+  width: 100rpx;
+  height: 200rpx;
+  background: green;
+}  
+```  
+
+![eg2](https://raw.githubusercontent.com/WoolBallLi/wxmini-Ithink/master/img/17_eg2.png)  
+
+但是如果你有这么一个结构的`wxml(html)`, z-index为class5的的元素并不会在class4之上, 因为它的父元素的z-index为3, 在4之下. 这是z-index:3给class3的view创建了一个局部层叠上下文, 其中的层叠元素会以class3位基准. class3和class4是一个级别的, 他们才会进行对比.  
+> **默认的**层叠上下文元素只有根元素(html, 小程序里是page). 所以, 当一个dom树没有形成局部层叠上下文时, 总会以根元素为基准对比.  
+
+```html  
+<view class='box'>
+  <view class="six">
+    <view class='eight'>8</view>
+    6
+  </view>
+  <view class="seven">7</view>
+</view>
+```   
+```css
+.six {
+  position: absolute;
+  width: 300rpx;
+  height: 150rpx;
+  background: orange;
+}
+.eight {
+  z-index: 8;
+  position: absolute;
+  width: 200rpx;
+  height: 100rpx;
+  background: purple;
+}
+.seven {
+  z-index: 7;
+  position: absolute;
+  top: 0;
+  width: 100rpx;
+  height: 200rpx;
+  background: yellowgreen;
+}
+```  
+
+![eg3](https://raw.githubusercontent.com/WoolBallLi/wxmini-Ithink/master/img/17_eg3.png)  
+
+此时class6和class7在同一个层叠上下文: 根元素(page)里, 所以他们会直接进行比较.  
+
+ 
