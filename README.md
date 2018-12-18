@@ -629,7 +629,9 @@ query.exec(function(res){
 
 ![著名的七阶层叠水平](https://raw.githubusercontent.com/WoolBallLi/wxmini-Ithink/master/img/17_level.png)  
 
-> [深入理解 CSS 属性 z-index](https://github.com/happylindz/blog/issues/11)  
+> [深入理解 CSS 属性 z-index](https://github.com/happylindz/blog/issues/11)   
+ 
+> [z-index层叠上下文小计(代码片段)](https://developers.weixin.qq.com/s/mwLzaKmh7A4c) 
 
 > 摘自[MDN](https://developer.mozilla.org/zh-CN/docs/Web/Guide/CSS/Understanding_z_index/The_stacking_context)  
 
@@ -650,8 +652,6 @@ query.exec(function(res){
 z-index不是写上去就会如你所想, 大在上, 小的在下. z-index会寻找一个参照, 来比较大小.  
 
 > **默认的**层叠上下文元素只有根元素(html, 小程序里是page). 所以, 当一个dom树没有形成局部层叠上下文时, 总会以根元素为基准对比.  
-
-> [z-index层叠上下文小计(代码片段)](https://developers.weixin.qq.com/s/mwLzaKmh7A4c)  
 
 ```html
 <view class='box'>
