@@ -16,7 +16,10 @@
 - [9. wx.request](#9-wxrequest)
 - [10. 倒计时](#10-倒计时)
 - [11. 事件](#11-事件)
-  - [11.1. 长按和单次点击功能不一样](#111-长按和单次点击功能不一样)
+  - [11.1. 事件绑定和冒泡](#111-事件绑定和冒泡)
+  - [11.2. 长按和单次点击功能不一样](#112-长按和单次点击功能不一样)
+    - [11.2.1. longpress](#1121-longpress)
+    - [11.2.2. bindtouchstart和bindtouchend](#1122-bindtouchstart和bindtouchend)
 - [12. input和button样式的大坑](#12-input和button样式的大坑)
 - [13. template模板与component组件](#13-template模板与component组件)
   - [13.1. template模板](#131-template模板)
@@ -182,8 +185,9 @@ goThinkDetail: function (e) {
 微信小程序已经可以很好的支持es6(es2015), 多多使用es6的语法吧.  
 `promise`可以帮你解决好多麻烦的问题.  
 但是微信暂时没有支持es7及以上. 有些麻烦的异步问题非常想用`async`和`awiat`解决怎么办?  
+
 > [微信小程序开发用 JS ES8 async/await 解决异步调用](https://pluwen.com/archives/397)  
-> 
+
 [regenerator-runtime](https://github.com/facebook/regenerator/blob/master/packages/regenerator-runtime/runtime.js) 引入, 直接就可以使用`async`和`awiat`啦! 除了在哪里用就都要引入之外, 暂时没什么缺点.  
 需要注意的是, 虽然本人使用`async/await`时没有出现过问题. 但是在使用es6 `forof`的时候出现过莫名其妙的解析失败, 将其换成`forin`之后就可以正常使用. 有此前车之鉴, 我的想法是, 尽量少用?
 
@@ -227,12 +231,31 @@ wx.request({
 | animationiteration | 会在一个 WXSS animation 一次迭代结束时触发                                             |
 | animationend       | 会在一个 WXSS animation 动画完成时触发                                                 |
 | touchforcechange   | 在支持 3D Touch 的 iPhone 设备,重按时会触发                                           | 1.9.90   |
+## 11.1. 事件绑定和冒泡  
 
-## 11.1. 长按和单次点击功能不一样  
+小程序的事件同样会有冒泡. 
+事件绑定的写法同组件的属性，以 key、value 的形式。
+
+- key 以`bind`或`catch`开头，然后跟上事件的类型，如`bindtap`、`catchtouchstart`。自基础库版本 1.5.0 起，在非原生组件中，`bind`和`catch`后可以紧跟一个冒号，其含义不变，如`bind:tap`、`catch:touchstart`。
+- value 是一个字符串，需要在对应的 Page 中定义同名的函数。不然当触发事件的时候会报错。  
+
+`bind`事件绑定不会阻止冒泡事件向上冒泡，`catch`事件绑定可以阻止冒泡事件向上冒泡。  
+
+如在下边这个例子中，点击 inner view 会先后调用`handleTap3`和`handleTap2`(因为tap事件会冒泡到 middle view，而 middle view 阻止了 tap 事件冒泡，不再向父节点传递)，点击 middle view 会触发`handleTap2`，点击 outer view 会触发`handleTap1`。  
+```html
+<view id="outer" bindtap="handleTap1">
+  outer view
+  <view id="middle" catchtap="handleTap2">
+    middle view <view id="inner" bindtap="handleTap3"> inner view </view>
+  </view>
+</view>
+```
+
+## 11.2. 长按和单次点击功能不一样  
 
 如果是一个长按复制和单机跳转怎么办呢? 你会发现, 单纯的使用`text`组件的长按复制和`bind:tap`, 长按的时候会触发tap事件.  
 
-### 11.1.1. longpress  
+### 11.2.1. longpress  
 
 ```html
 <view class="view" bind:longpress="copy" data-text='{{text}}' bind:tap="call">{{text}}</view>
@@ -258,7 +281,7 @@ copy(e) {
 ```  
 此时长按只会触发`copy`事件, 不会触发`call`.
 
-### 11.1.2. bindtouchstart和bindtouchend  
+### 11.2.2. bindtouchstart和bindtouchend  
 
 属性`bindtouchstart`和`bindtouchend`出现了, 是触碰开始和触碰结束, 判断开始到结束的时间, 来触发不同的方法即可.  
 
@@ -626,6 +649,8 @@ query.exec(function(res){
 
 z-index不是写上去就会如你所想, 大在上, 小的在下. z-index会寻找一个参照, 来比较大小.  
 
+> **默认的**层叠上下文元素只有根元素(html, 小程序里是page). 所以, 当一个dom树没有形成局部层叠上下文时, 总会以根元素为基准对比.  
+
 > [z-index层叠上下文小计(代码片段)](https://developers.weixin.qq.com/s/mwLzaKmh7A4c)  
 
 ```html
@@ -692,7 +717,6 @@ z-index不是写上去就会如你所想, 大在上, 小的在下. z-index会寻
 ![eg2](https://raw.githubusercontent.com/WoolBallLi/wxmini-Ithink/master/img/17_eg2.png)  
 
 但是如果你有这么一个结构的`wxml(html)`, z-index为class5的的元素并不会在class4之上, 因为它的父元素的z-index为3, 在4之下. 这是z-index:3给class3的view创建了一个局部层叠上下文, 其中的层叠元素会以class3位基准. class3和class4是一个级别的, 他们才会进行对比.  
-> **默认的**层叠上下文元素只有根元素(html, 小程序里是page). 所以, 当一个dom树没有形成局部层叠上下文时, 总会以根元素为基准对比.  
 
 ```html  
 <view class='box'>
