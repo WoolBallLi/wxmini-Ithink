@@ -626,6 +626,8 @@ query.exec(function(res){
 
 z-index不是写上去就会如你所想, 大在上, 小的在下. z-index会寻找一个参照, 来比较大小.  
 
+> [z-index层叠上下文小计(代码片段)](https://developers.weixin.qq.com/s/mwLzaKmh7A4c)  
+
 ```html
 <view class='box'>
   <view class="one">1</view>
@@ -651,7 +653,7 @@ z-index不是写上去就会如你所想, 大在上, 小的在下. z-index会寻
 
 ![eg1](https://raw.githubusercontent.com/WoolBallLi/wxmini-Ithink/master/img/17_eg1.png)  
 
-如此一个z-index, 2在1之上无误.  
+如此一个z-index, class1在class2之上无误.  
 
 ```html  
 <view class='box'>
