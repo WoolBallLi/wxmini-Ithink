@@ -39,6 +39,7 @@
   - [15.5. 在有遮罩层时, 可以滚动](#155-在有遮罩层时-可以滚动)
 - [16. 路由](#16-路由)
 - [17. z-index(层叠上下文)](#17-z-index层叠上下文)
+- [18. css格式化上下文, 伪类, 变量, 命名规范, reset](#18-css格式化上下文-伪类-变量-命名规范-reset)
   
 # 1. 开发工具  
 
@@ -217,20 +218,20 @@ wx.request({
 
 > 事件分类  
 
-| 类型               | 触发条件                                                                               | 最低版本 |
-| ------------------ | -------------------------------------------------------------------------------------- | -------- |
-| touchstart         | 手指触摸动作开始                                                                       |
-| touchmove          | 手指触摸后移动                                                                         |
-| touchcancel        | 手指触摸动作被打断,如来电提醒,弹窗                                                   |
-| touchend           | 手指触摸动作结束                                                                       |
-| tap                | 手指触摸后马上离开                                                                     |
+| 类型               | 触发条件                                                                            | 最低版本 |
+| ------------------ | ----------------------------------------------------------------------------------- | -------- |
+| touchstart         | 手指触摸动作开始                                                                    |
+| touchmove          | 手指触摸后移动                                                                      |
+| touchcancel        | 手指触摸动作被打断,如来电提醒,弹窗                                                  |
+| touchend           | 手指触摸动作结束                                                                    |
+| tap                | 手指触摸后马上离开                                                                  |
 | longpress          | 手指触摸后,超过350ms再离开,如果指定了事件回调函数并触发了这个事件,tap事件将不被触发 | 1.5.0    |
-| longtap            | 手指触摸后,超过350ms再离开（推荐使用longpress事件代替）                               |
-| transitionend      | 会在 WXSS transition 或 wx.createAnimation 动画结束后触发                              |
-| animationstart     | 会在一个 WXSS animation 动画开始时触发                                                 |
-| animationiteration | 会在一个 WXSS animation 一次迭代结束时触发                                             |
-| animationend       | 会在一个 WXSS animation 动画完成时触发                                                 |
-| touchforcechange   | 在支持 3D Touch 的 iPhone 设备,重按时会触发                                           | 1.9.90   |
+| longtap            | 手指触摸后,超过350ms再离开（推荐使用longpress事件代替）                             |
+| transitionend      | 会在 WXSS transition 或 wx.createAnimation 动画结束后触发                           |
+| animationstart     | 会在一个 WXSS animation 动画开始时触发                                              |
+| animationiteration | 会在一个 WXSS animation 一次迭代结束时触发                                          |
+| animationend       | 会在一个 WXSS animation 动画完成时触发                                              |
+| touchforcechange   | 在支持 3D Touch 的 iPhone 设备,重按时会触发                                         | 1.9.90   |
 ## 11.1. 事件绑定和冒泡  
 
 小程序的事件同样会有冒泡. 
@@ -565,17 +566,17 @@ div::after {
 说起`scroll-view `, 那可真是让人又爱又恨, 爱它封装了好多方法, 使用就能解决大部分问题, 甚至`scroll-view `组件还能触发`ios`的Q弹特效. 恨它bug无数, 不知什么时候就一头栽坑里爬不出来.  
 > 贴张属性表  
 
-| 属性名                | 类型            | 默认值 | 说明                                                                                          |
-| --------------------- | --------------- | ------ | --------------------------------------------------------------------------------------------- |
-| scroll-x              | Boolean         | false  | 允许横向滚动                                                                                  |
-| scroll-y              | Boolean         | false  | 允许纵向滚动                                                                                  |
-| upper-threshold       | Number / String | 50     | 距顶部/左边多远时（单位px,2.4.0起支持rpx）,触发 scrolltoupper 事件                          |
-| lower-threshold       | Number / String | 50     | 距底部/右边多远时（单位px,2.4.0起支持rpx）,触发 scrolltolower 事件                          |
+| 属性名                | 类型            | 默认值 | 说明                                                                                         |
+| --------------------- | --------------- | ------ | -------------------------------------------------------------------------------------------- |
+| scroll-x              | Boolean         | false  | 允许横向滚动                                                                                 |
+| scroll-y              | Boolean         | false  | 允许纵向滚动                                                                                 |
+| upper-threshold       | Number / String | 50     | 距顶部/左边多远时（单位px,2.4.0起支持rpx）,触发 scrolltoupper 事件                           |
+| lower-threshold       | Number / String | 50     | 距底部/右边多远时（单位px,2.4.0起支持rpx）,触发 scrolltolower 事件                           |
 | scroll-top            | Number / String |        | 设置竖向滚动条位置（单位px,2.4.0起支持rpx）                                                  |
 | scroll-left           | Number / String |        | 设置横向滚动条位置（单位px,2.4.0起支持rpx）                                                  |
-| scroll-into-view      | String          |        | 值应为某子元素id（id不能以数字开头）.设置哪个方向可滚动,则在哪个方向滚动到该元素            |
-| scroll-with-animation | Boolean         | false  | 在设置滚动条位置时使用动画过渡                                                                |
-| enable-back-to-top    | Boolean         | false  | iOS点击顶部状态栏、安卓双击标题栏时,滚动条返回顶部,只支持竖向                               |
+| scroll-into-view      | String          |        | 值应为某子元素id（id不能以数字开头）.设置哪个方向可滚动,则在哪个方向滚动到该元素             |
+| scroll-with-animation | Boolean         | false  | 在设置滚动条位置时使用动画过渡                                                               |
+| enable-back-to-top    | Boolean         | false  | iOS点击顶部状态栏、安卓双击标题栏时,滚动条返回顶部,只支持竖向                                |
 | bindscrolltoupper     | EventHandle     |        | 滚动到顶部/左边,会触发 scrolltoupper 事件                                                    |
 | bindscrolltolower     | EventHandle     |        | 滚动到底部/右边,会触发 scrolltolower 事件                                                    |
 | bindscroll            | EventHandle     |        | 滚动时触发,event.detail = {scrollLeft, scrollTop, scrollHeight, scrollWidth, deltaX, deltaY} |
@@ -755,4 +756,7 @@ z-index不是写上去就会如你所想, 大在上, 小的在下. z-index会寻
 
 此时class6和class7在同一个层叠上下文: 根元素(page)里, 所以他们会直接进行比较.  
 
- 
+# 18. css格式化上下文, 伪类, 变量, 命名规范, reset  
+
+> [谈谈一些有趣的CSS题目（11~15）](https://github.com/chokcoco/iCSS/issues/5)  
+
