@@ -40,6 +40,7 @@
 - [16. 路由](#16-路由)
 - [17. z-index(层叠上下文)](#17-z-index层叠上下文)
 - [18. css格式化上下文, 伪类, 变量, 命名规范, reset](#18-css格式化上下文-伪类-变量-命名规范-reset)
+- [19. switch的一个用法](#19-switch的一个用法)
   
 # 1. 开发工具  
 
@@ -760,3 +761,22 @@ z-index不是写上去就会如你所想, 大在上, 小的在下. z-index会寻
 
 > [谈谈一些有趣的CSS题目（11~15）](https://github.com/chokcoco/iCSS/issues/5)  
 
+# 19. switch的一个用法  
+
+``` js
+var num = 25;
+switch (true) {
+  case num < 0: 
+    alert("Less than 0.");
+    break;
+  case num >= 0 && num <= 10: 
+    alert("Between 0 and 10.");
+    break;
+  case num > 10 && num <= 20: 
+    alert("Between 10 and 20.");
+    break;
+  default: 
+    alert("More than 20.");
+}
+//More than 20.
+```
