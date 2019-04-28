@@ -4,53 +4,59 @@
 > [Markdown基本语法](https://www.jianshu.com/p/191d1e21f7ed)  
 > [实用帖 | 如何为 Markdown 文件自动生成目录？](https://www.jianshu.com/p/4721ddd27027)
 ---
+# 1. 目录
 
-- [1. 开发工具](#1-开发工具)
-- [2. 小程序的写法](#2-小程序的写法)
-- [3. 电池栏的适配](#3-电池栏的适配)
-- [4. 小程序里的data](#4-小程序里的data)
-- [5. 关于if和hidden的条件渲染](#5-关于if和hidden的条件渲染)
-- [6. 关于for循环渲染](#6-关于for循环渲染)
-- [7. 元素上绑定方法, 以及绑定data](#7-元素上绑定方法-以及绑定data)
-- [8. 关于微信里的js语法](#8-关于微信里的js语法)
-- [9. wx.request](#9-wxrequest)
-- [10. 倒计时](#10-倒计时)
-- [11. 事件](#11-事件)
-  - [11.1. 事件绑定和冒泡](#111-事件绑定和冒泡)
-  - [11.2. 长按和单次点击功能不一样](#112-长按和单次点击功能不一样)
-    - [11.2.1. longpress](#1121-longpress)
-    - [11.2.2. bindtouchstart和bindtouchend](#1122-bindtouchstart和bindtouchend)
-- [12. input和button样式的大坑](#12-input和button样式的大坑)
-- [13. template模板与component组件](#13-template模板与component组件)
-  - [13.1. template模板](#131-template模板)
-  - [13.2. component组件](#132-component组件)
-- [14. input与textarea](#14-input与textarea)
-  - [14.1. input](#141-input)
-  - [14.2. textarea](#142-textarea)
-  - [14.3. css文字换行](#143-css文字换行)
-  - [14.4. 文字超出省略](#144-文字超出省略)
-  - [14.5. 文字两端对齐](#145-文字两端对齐)
-  - [14.6. inline-block元素设置overflow:hidden属性导致相邻行内元素向下偏移](#146-inline-block元素设置overflowhidden属性导致相邻行内元素向下偏移)
-- [15. 又爱又恨的scroll-view](#15-又爱又恨的scroll-view)
-  - [15.1. 回到顶部和锚点跳转](#151-回到顶部和锚点跳转)
-  - [15.2. 竖向滚动问题](#152-竖向滚动问题)
-  - [15.3. 获取滚动高度问题](#153-获取滚动高度问题)
-  - [15.4. 上拉加载](#154-上拉加载)
-  - [15.5. 在有遮罩层时, 可以滚动](#155-在有遮罩层时-可以滚动)
-- [16. 路由](#16-路由)
-- [17. z-index(层叠上下文)](#17-z-index层叠上下文)
-- [18. css格式化上下文, 伪类, 变量, 命名规范, reset](#18-css格式化上下文-伪类-变量-命名规范-reset)
-- [19. switch的一个用法](#19-switch的一个用法)
-  
-# 1. 开发工具  
+- [1. 目录](#1-%E7%9B%AE%E5%BD%95)
+- [2. 开发工具](#2-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7)
+- [3. 小程序的写法](#3-%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%9A%84%E5%86%99%E6%B3%95)
+- [4. 电池栏的适配](#4-%E7%94%B5%E6%B1%A0%E6%A0%8F%E7%9A%84%E9%80%82%E9%85%8D)
+- [5. 小程序里的data](#5-%E5%B0%8F%E7%A8%8B%E5%BA%8F%E9%87%8C%E7%9A%84data)
+- [6. 关于if和hidden的条件渲染](#6-%E5%85%B3%E4%BA%8Eif%E5%92%8Chidden%E7%9A%84%E6%9D%A1%E4%BB%B6%E6%B8%B2%E6%9F%93)
+- [7. 关于for循环渲染](#7-%E5%85%B3%E4%BA%8Efor%E5%BE%AA%E7%8E%AF%E6%B8%B2%E6%9F%93)
+- [8. 元素上绑定方法, 以及绑定data](#8-%E5%85%83%E7%B4%A0%E4%B8%8A%E7%BB%91%E5%AE%9A%E6%96%B9%E6%B3%95-%E4%BB%A5%E5%8F%8A%E7%BB%91%E5%AE%9Adata)
+- [9. 关于微信里的js语法](#9-%E5%85%B3%E4%BA%8E%E5%BE%AE%E4%BF%A1%E9%87%8C%E7%9A%84js%E8%AF%AD%E6%B3%95)
+- [10. wx.request](#10-wxrequest)
+- [11. 倒计时](#11-%E5%80%92%E8%AE%A1%E6%97%B6)
+- [12. 事件](#12-%E4%BA%8B%E4%BB%B6)
+  - [12.1. 事件绑定和冒泡](#121-%E4%BA%8B%E4%BB%B6%E7%BB%91%E5%AE%9A%E5%92%8C%E5%86%92%E6%B3%A1)
+  - [12.2. 长按和单次点击功能不一样](#122-%E9%95%BF%E6%8C%89%E5%92%8C%E5%8D%95%E6%AC%A1%E7%82%B9%E5%87%BB%E5%8A%9F%E8%83%BD%E4%B8%8D%E4%B8%80%E6%A0%B7)
+    - [12.2.1. longpress](#1221-longpress)
+    - [12.2.2. bindtouchstart和bindtouchend](#1222-bindtouchstart%E5%92%8Cbindtouchend)
+- [13. input和button样式的大坑](#13-input%E5%92%8Cbutton%E6%A0%B7%E5%BC%8F%E7%9A%84%E5%A4%A7%E5%9D%91)
+- [14. template模板与component组件](#14-template%E6%A8%A1%E6%9D%BF%E4%B8%8Ecomponent%E7%BB%84%E4%BB%B6)
+  - [14.1. template模板](#141-template%E6%A8%A1%E6%9D%BF)
+  - [14.2. component组件](#142-component%E7%BB%84%E4%BB%B6)
+- [15. input与textarea](#15-input%E4%B8%8Etextarea)
+  - [15.1. input](#151-input)
+  - [15.2. textarea](#152-textarea)
+  - [15.3. css文字换行](#153-css%E6%96%87%E5%AD%97%E6%8D%A2%E8%A1%8C)
+  - [15.4. 文字超出省略](#154-%E6%96%87%E5%AD%97%E8%B6%85%E5%87%BA%E7%9C%81%E7%95%A5)
+  - [15.5. 文字两端对齐](#155-%E6%96%87%E5%AD%97%E4%B8%A4%E7%AB%AF%E5%AF%B9%E9%BD%90)
+  - [15.6. inline-block元素设置overflow:hidden属性导致相邻行内元素向下偏移](#156-inline-block%E5%85%83%E7%B4%A0%E8%AE%BE%E7%BD%AEoverflowhidden%E5%B1%9E%E6%80%A7%E5%AF%BC%E8%87%B4%E7%9B%B8%E9%82%BB%E8%A1%8C%E5%86%85%E5%85%83%E7%B4%A0%E5%90%91%E4%B8%8B%E5%81%8F%E7%A7%BB)
+- [16. 又爱又恨的scroll-view](#16-%E5%8F%88%E7%88%B1%E5%8F%88%E6%81%A8%E7%9A%84scroll-view)
+  - [16.1. 回到顶部和锚点跳转](#161-%E5%9B%9E%E5%88%B0%E9%A1%B6%E9%83%A8%E5%92%8C%E9%94%9A%E7%82%B9%E8%B7%B3%E8%BD%AC)
+  - [16.2. 竖向滚动问题](#162-%E7%AB%96%E5%90%91%E6%BB%9A%E5%8A%A8%E9%97%AE%E9%A2%98)
+  - [16.3. 获取滚动高度问题](#163-%E8%8E%B7%E5%8F%96%E6%BB%9A%E5%8A%A8%E9%AB%98%E5%BA%A6%E9%97%AE%E9%A2%98)
+  - [16.4. 上拉加载](#164-%E4%B8%8A%E6%8B%89%E5%8A%A0%E8%BD%BD)
+  - [16.5. 在有遮罩层时, 可以滚动](#165-%E5%9C%A8%E6%9C%89%E9%81%AE%E7%BD%A9%E5%B1%82%E6%97%B6-%E5%8F%AF%E4%BB%A5%E6%BB%9A%E5%8A%A8)
+- [17. 路由](#17-%E8%B7%AF%E7%94%B1)
+- [18. z-index(层叠上下文)](#18-z-index%E5%B1%82%E5%8F%A0%E4%B8%8A%E4%B8%8B%E6%96%87)
+- [19. css格式化上下文, 伪类, 变量, 命名规范, reset](#19-css%E6%A0%BC%E5%BC%8F%E5%8C%96%E4%B8%8A%E4%B8%8B%E6%96%87-%E4%BC%AA%E7%B1%BB-%E5%8F%98%E9%87%8F-%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83-reset)
+- [20. switch的一个用法](#20-switch%E7%9A%84%E4%B8%80%E4%B8%AA%E7%94%A8%E6%B3%95)
+
+
+# 2. 开发工具  
+[返回目录](#1-%E7%9B%AE%E5%BD%95)  
 
 本人使用的是vsCode编写小程序的, 安装Vetur和minapp插件以支持微信小程序. (vsCode的less编译真好用).  
 
-# 2. 小程序的写法  
+# 3. 小程序的写法  
+[返回目录](#1-%E7%9B%AE%E5%BD%95)  
 
 首先嘛, 小程序和vue.js非常相似, 但也不尽相同, 本人有使用vue的经验, 并没有十分仔细的完整阅读微信小程序的文档, 以至于有很对问题明明文档里有直接的解决办法, 我还在抓破脑袋的瞎想. 幸亏我老哥也是做小程序的, 每次问他都是拿文档贴我脸上, 嘿嘿嘿.  
 
-# 3. 电池栏的适配  
+# 4. 电池栏的适配  
+[返回目录](#1-%E7%9B%AE%E5%BD%95)  
 
 当ui不想使用微信自带的导航栏时, 自己写就得做电池栏的适配了.   
 这个`statusBarHeight`就是电池栏的高度了, 注意单位是px, 往里写rpx的时候要*2. 微信小程序的rpx单位是以苹果6 dpr2为基准算的, 会根据机型自动调整, 暂时未发现有什么大问题.  
@@ -66,7 +72,8 @@ wx.getSystemInfo({
 })  
 ```  
 
-# 4. 小程序里的data  
+# 5. 小程序里的data  
+[返回目录](#1-%E7%9B%AE%E5%BD%95)  
 
 微信小程序里读取是`this.data.$name`, 存储是`this.setData({$name: '$data'})`.  
 vue里读取和存储都是`this.$name`,  
@@ -104,7 +111,8 @@ this.setData({
 
 >[小程序赋值代码片段](https://developers.weixin.qq.com/s/MBFvIBmD7W4H)
 
-# 5. 关于if和hidden的条件渲染  
+# 6. 关于if和hidden的条件渲染  
+[返回目录](#1-%E7%9B%AE%E5%BD%95)  
 
 微信小程序里的`wx:if`和`hidden`是同**vue**里的`v-if`和`v-show`类似.  
 `wx:if`与`v-if`完全相同, 是控制是否加载这个元素的.  
@@ -113,7 +121,8 @@ this.setData({
 **react**里的条件渲染是在`render`时, 直接通过**js**控制的.  
 微信有一个神奇的标签`<block></block>`, 他是一个空标签, 主要用在`wx:if, hidden, wx:for`上. 在渲染的时候就不需要多一个`<view></view>`标签了.
 
-# 6. 关于for循环渲染  
+# 7. 关于for循环渲染  
+[返回目录](#1-%E7%9B%AE%E5%BD%95)  
 
 微信小程序的`wx:for`和`v-for`类似.  
 值得注意的是, 微信小程序默认的循环value是item, 下标是index, 可以直接使用;  
@@ -146,7 +155,8 @@ this.setData({
 </ul>
 ```  
 
-# 7. 元素上绑定方法, 以及绑定data  
+# 8. 元素上绑定方法, 以及绑定data  
+[返回目录](#1-%E7%9B%AE%E5%BD%95)  
 
 在这一点上微信小程序和vue的差别就已经不小了.  
 在代码中可以看见, 小程序绑定方法使用的是`bind:tap(bindtap)`,  
@@ -182,7 +192,8 @@ goThinkDetail: function (e) {
 <button onClick={this.handleClick}>按钮</button>
  ```  
 
-# 8. 关于微信里的js语法  
+# 9. 关于微信里的js语法  
+[返回目录](#1-%E7%9B%AE%E5%BD%95)  
 
 微信小程序已经可以很好的支持es6(es2015), 多多使用es6的语法吧.  
 `promise`可以帮你解决好多麻烦的问题.  
@@ -193,7 +204,8 @@ goThinkDetail: function (e) {
 [regenerator-runtime](https://github.com/facebook/regenerator/blob/master/packages/regenerator-runtime/runtime.js) 引入, 直接就可以使用`async`和`awiat`啦! 除了在哪里用就都要引入之外, 暂时没什么缺点.  
 需要注意的是, 虽然本人使用`async/await`时没有出现过问题. 但是在使用es6 `forof`的时候出现过莫名其妙的解析失败, 将其换成`forin`之后就可以正常使用. 有此前车之鉴, 我的想法是, 尽量少用?
 
-# 9. wx.request  
+# 10. wx.request  
+[返回目录](#1-%E7%9B%AE%E5%BD%95)  
 
 我们的小程序其中有一个获取11位秘钥的接口, 直接获取发现json格式自动截取了10位. 这种情况下, 给request设置一下接受格式为text, 就可以解决了.  
 ```js  
@@ -208,14 +220,16 @@ wx.request({
 });
 ```  
 
-# 10. 倒计时  
+# 11. 倒计时  
+[返回目录](#1-%E7%9B%AE%E5%BD%95)  
 
 看这里!
 >[微信小程序---完整的验证码获取倒计时效果 ---根据手机号是否符合要求进行判断](https://blog.csdn.net/Candy_mi/article/details/80225359)  
 
 倒计时的原理就是通过一个计时器改变data状态, 然后渲染到页面里. 根据自己的具体需求, 加些验证, 改变提示文字即可.  
 
-# 11. 事件  
+# 12. 事件  
+[返回目录](#1-%E7%9B%AE%E5%BD%95)  
 
 > 事件分类  
 
@@ -233,7 +247,7 @@ wx.request({
 | animationiteration | 会在一个 WXSS animation 一次迭代结束时触发                                          |
 | animationend       | 会在一个 WXSS animation 动画完成时触发                                              |
 | touchforcechange   | 在支持 3D Touch 的 iPhone 设备,重按时会触发                                         | 1.9.90   |
-## 11.1. 事件绑定和冒泡  
+## 12.1. 事件绑定和冒泡  
 
 小程序的事件同样会有冒泡. 
 事件绑定的写法同组件的属性，以 key、value 的形式。
@@ -253,11 +267,11 @@ wx.request({
 </view>
 ```
 
-## 11.2. 长按和单次点击功能不一样  
+## 12.2. 长按和单次点击功能不一样  
 
 如果是一个长按复制和单机跳转怎么办呢? 你会发现, 单纯的使用`text`组件的长按复制和`bind:tap`, 长按的时候会触发tap事件.  
 
-### 11.2.1. longpress  
+### 12.2.1. longpress  
 
 ```html
 <view class="view" bind:longpress="copy" data-text='{{text}}' bind:tap="call">{{text}}</view>
@@ -283,7 +297,7 @@ copy(e) {
 ```  
 此时长按只会触发`copy`事件, 不会触发`call`.
 
-### 11.2.2. bindtouchstart和bindtouchend  
+### 12.2.2. bindtouchstart和bindtouchend  
 
 属性`bindtouchstart`和`bindtouchend`出现了, 是触碰开始和触碰结束, 判断开始到结束的时间, 来触发不同的方法即可.  
 
@@ -333,7 +347,8 @@ copy: function (text) {
 },
 ```  
 
-# 12. input和button样式的大坑
+# 13. input和button样式的大坑
+[返回目录](#1-%E7%9B%AE%E5%BD%95)  
 
 微信小程序里, input和button有一大堆的默认样式, 相当坑. 当你需要高度的自定义一个按钮, 就会让你头疼. 其中的伪类样式有一个border边框.
 ```css  
@@ -356,11 +371,12 @@ input {
 }
 ```  
 
-# 13. template模板与component组件  
+# 14. template模板与component组件  
+[返回目录](#1-%E7%9B%AE%E5%BD%95)  
 
 >[微信小程序template模板与component组件的区别和使用](https://www.cnblogs.com/xyyt/p/9559326.html)
 
-## 13.1. template模板  
+## 14.1. template模板  
 
 WXML提供模板(template), 可以在模板中定义代码片段, 然后在不同的地方调用.  
 在一个wxml模板里, 给template起一个`name`, 这个`name`将会在调用模板时, 声明这个模板是谁(名字). 调用时使用一个`<import src='..'></import>`标签引入. 每个模板有一个单独的作用域, 在模板中使用的数据, 要通过`data="{{$data}}`传入, 否则无法调用.  
@@ -396,7 +412,7 @@ Page({
 WXSS可以使用@import语句可以导入外联样式表,@import后跟需要导入的外联样式表的相对路径,用;表示语句结束.
 而js, 就和平常一样引入就行了. 调用时记得传入this.  
 
-## 13.2. component组件  
+## 14.2. component组件  
 
 component组件的写法基本和page页面一样, 简单用法参考官方文档即可.  
 我就用到的地方说几句.  
@@ -438,11 +454,12 @@ collectProject: function (e) {
 },  
 ```
 
-# 14. input与textarea
+# 15. input与textarea
+[返回目录](#1-%E7%9B%AE%E5%BD%95)  
 
 微信小程序里的input和textarea是原生组件, 小程序里的原生组件层级是最高的, 不可被覆盖. 并且无法在 `scroll-view、swiper、picker-view、movable-view` 中使用. 会产生各种莫名其妙的问题, 例如在滚动时诡异的表现.  
 
-## 14.1. input  
+## 15.1. input  
 
 普通的 `input` 输入框, 看似没有这些问题, 那是小程序做了一定的处理. 大概的原理就是, 在非输入状态下,  `input` 只是一个普通的元素, 点击的时候就会变成正常的 `input` .  
 这样解决了原生组件的样式问题, 但是却带来了一个新的**bug**, 聚焦和非聚焦状态下的 `input` 表现不一致, 切换时会出现文字跳动的问题, 这个**bug**暂时无解.  
@@ -483,14 +500,14 @@ if (/[\u4e00-\u9fa5]/.test(PWNum)) {
 微信小程序的`placeholder`样式通过`placeholder-class`属性, 接收一个**class类名**或`placeholder-style`属性, 使用**行内样式**.  
 `input`还有`value`属性, 输入框的内容; `disabled`属性, 是否禁用等.  
 
-## 14.2. textarea  
+## 15.2. textarea  
 
 textarea多行文本输入的使用方法基本和input一致, 但是有一点, 小程序并没有对齐进行额外的处理, 所以在非聚焦情况下, textarea的层级永远最高, 还会出现诡异的滚动情况.  
 - tip: 不建议在多行文本上对用户的输入进行修改,所以 textarea 的 bindinput 处理函数并不会将返回值反映到 textarea 上.  
 
 为了能有更好的表现效果, 在有滚动和遮罩的场景, 建议非聚焦情况下使用`view`做一个展示效果, 通过`wx:if`切换`view`与`textarea`, 更改`focus`属性为`true`获取焦点.  
 
-## 14.3. css文字换行  
+## 15.3. css文字换行  
 
 提到了文字输入, 补充一下文字换行的css小知识.  
 > [你真的了解word-wrap和word-break的区别吗？](https://www.cnblogs.com/2050/archive/2012/08/10/2632256.html)  
@@ -501,7 +518,7 @@ textarea多行文本输入的使用方法基本和input一致, 但是有一点, 
 而`word-break: break-all`就是简单粗暴的, 以每一个字母来当做换行的**标识**, 这时候就不存在超出另起一行的表现了. 换句话来说就是, 已经没有单词这个概念了, 每一个字母就是一个单词.  
 `word-break: break-all`除了opera外,其他都支持.  
 
-## 14.4. 文字超出省略  
+## 15.4. 文字超出省略  
 
 微信小程序的文字超出省略就简单了, 他是`webkit`内核的, 直接使用常规的就OK.
 ```css  
@@ -530,7 +547,7 @@ textarea多行文本输入的使用方法基本和input一致, 但是有一点, 
 ```  
 还有一种使用纯css的兼容写法.在逛git的时候, 看见[happylindz](https://github.com/happylindz)大佬的[纯 CSS 实现多行文字截断](https://github.com/happylindz/blog/issues/12), 真是太佩服了. 以前从未想到过`float`可以这样用.  
 
-## 14.5. 文字两端对齐  
+## 15.5. 文字两端对齐  
 
 >[小技巧|CSS如何实现文字两端对齐](https://segmentfault.com/a/1190000011336392)  
 
@@ -557,13 +574,15 @@ div::after {
 }
 ```
 
-## 14.6. inline-block元素设置overflow:hidden属性导致相邻行内元素向下偏移  
+## 15.6. inline-block元素设置overflow:hidden属性导致相邻行内元素向下偏移  
 
 >[inline-block元素设置overflow:hidden属性导致相邻行内元素向下偏移](https://blog.csdn.net/iefreer/article/details/50421025)  
 
 常用的解决方法是为上述inline-block元素添加vertical-align: bottom.  
 
-# 15. 又爱又恨的scroll-view  
+# 16. 又爱又恨的scroll-view  
+[返回目录](#1-%E7%9B%AE%E5%BD%95)  
+
 说起`scroll-view `, 那可真是让人又爱又恨, 爱它封装了好多方法, 使用就能解决大部分问题, 甚至`scroll-view `组件还能触发`ios`的Q弹特效. 恨它bug无数, 不知什么时候就一头栽坑里爬不出来.  
 > 贴张属性表  
 
@@ -584,17 +603,17 @@ div::after {
 
 - 使用竖向滚动时,需要给`<scroll-view>`一个固定高度,通过 WXSS 设置 height.  
 
-## 15.1. 回到顶部和锚点跳转  
+## 16.1. 回到顶部和锚点跳转  
 
 使用`scroll-top="0"`即可实现回到顶部的功能, 想要动画过渡添加`scroll-with-animation="{{true}}"`.  
 锚点跳转, `scroll-into-view="{{intoView}}"`直接填入需要跳转的元素id即可实现, 注意此时的元素id不加`'#'`. 
 
-## 15.2. 竖向滚动问题  
+## 16.2. 竖向滚动问题  
 
 文档中有提, `scroll-view`需要有一个高度, 才可以属性滚动, 这个高度是指`scroll-view`这个组件的显示高度. 但是我遇到过一个问题, 在iphone8(具体ios版本号记不得了)里, 设置`height: 100%`不能触发竖向滚动, 目前我是给`scroll-view`添加一个`min-height:*rpx`来解决问题.  
 我遇到了了一个在`scroll-view`的父元素是`flex1`自适应元素的时候, 要给该元素添加一个`display: flex`, 否则无法触发滚动问题. 不知是我的写法有误还是什么.  
 
-## 15.3. 获取滚动高度问题  
+## 16.3. 获取滚动高度问题  
 
 使用`bindscroll`既可获取'scrollTop'等属性, 但是它有一个问题, 就是反应特别慢, 特别是开发工具里(真机还好), 有时你滚了半天了, 才堪堪触发效果. 使用js判断在只在条件达到时`setData`可以好上那么一点儿. 
 获取 SelectorQuery 对象实例可以在真机上效果稳定.  
@@ -609,17 +628,18 @@ query.exec(function(res){
 })
 ```  
 
-## 15.4. 上拉加载
+## 16.4. 上拉加载
 
 `bindscrolltolower`可以轻松的实现上拉加载数据的功能, 只需在触发`bindscrolltolower`进行'pageNO++'重新请求拼接结果即可.  
 >[微信小程序之下拉加载和上拉刷新](https://www.cnblogs.com/simba-lkj/p/6274232.html)  
 >[微信小程序实战篇-下拉刷新与加载更多](https://blog.csdn.net/u012927188/article/details/73369201/)  
 
-## 15.5. 在有遮罩层时, 可以滚动  
+## 16.5. 在有遮罩层时, 可以滚动  
 
 如果出现在遮罩弹出的时候, `scroll-view`滚动穿透的问题, 在弹出时设置`scroll-x`或`scroll-y`为`false`即可.  
 
-# 16. 路由  
+# 17. 路由  
+[返回目录](#1-%E7%9B%AE%E5%BD%95)  
 
 > [路由](https://developers.weixin.qq.com/miniprogram/dev/api/wx.navigateBack.html)  
 
@@ -627,7 +647,8 @@ query.exec(function(res){
 在需要的时候, 可以`wx.reLaunch(Object object)`清除. 但是不要滥用.  
 我在使用路由的时候, 遇到过一个诡异的情况, 在从tabbar页切换到其它页面时, 莫名的加载了另一个tabbar页, `wx.navigateBack(Object object)`也可正常返回. 但是被额外加载的tabbar页`scroll-view`的`scroll-top`失效了, 不得已使用`reLaunch`切换, 算是解决了问题.  
 
-# 17. z-index(层叠上下文)  
+# 18. z-index(层叠上下文)  
+[返回目录](#1-%E7%9B%AE%E5%BD%95)  
 
 ![著名的七阶层叠水平](https://raw.githubusercontent.com/WoolBallLi/wxmini-Ithink/master/img/17_level.png)  
 
@@ -757,11 +778,13 @@ z-index不是写上去就会如你所想, 大在上, 小的在下. z-index会寻
 
 此时class6和class7在同一个层叠上下文: 根元素(page)里, 所以他们会直接进行比较.  
 
-# 18. css格式化上下文, 伪类, 变量, 命名规范, reset  
+# 19. css格式化上下文, 伪类, 变量, 命名规范, reset  
+[返回目录](#1-%E7%9B%AE%E5%BD%95)  
 
 > [谈谈一些有趣的CSS题目（11~15）](https://github.com/chokcoco/iCSS/issues/5)  
 
-# 19. switch的一个用法  
+# 20. switch的一个用法  
+[返回目录](#1-%E7%9B%AE%E5%BD%95)  
 
 ``` js
 var num = 25;
